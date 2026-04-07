@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akshata Tiwari — MIT</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg:           #ffffff;
+            --surface:      #fdf6f9;
+            --surface-2:    #f5eef5;
+            --text:         #1a1820;
+            --text-muted:   #6d6478;
+            --accent:       #c084b8;
+            --accent-2:     #89b4cc;
+            --accent-3:     #a8d5b5;
+            --accent-soft:  #f4e6f4;
+            --accent-soft-2:#e3f0f8;
+            --border:       #ede6f0;
+            --link:         #9b6fb0;
+            --serif:        'Lora', Georgia, serif;
+            --sans:         'Poppins', sans-serif;
+            --r:            10px;
+            --max-w:        740px;
+            --wide-w:       980px;
+        }
+
+        [data-theme="dark"] {
+            --bg:           #12101a;
+            --surface:      #1c1826;
+            --surface-2:    #241e30;
+            --text:         #f0ecf8;
+            --text-muted:   #a89ec0;
+            --accent:       #d49ecb;
+            --accent-2:     #8bbdd6;
+            --accent-3:     #90c8a0;
+            --accent-soft:  #2d1f3a;
+            --accent-soft-2:#1a2d3a;
+            --border:       #2e2640;
+            --link:         #c48fd8;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html, body { height: 100%; overflow: hidden; }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--sans);
+            font-size: 15.5px;
+            line-height: 1.78;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ── Panel navigation ── */
+        .panel {
+            display: none;
+            position: fixed;
+            top: 52px; left: 0; right: 0; bottom: 0;
+            overflow-y: auto;
+        }
+        .panel.active { display: block; }
+        nav ul a.nav-active { color: var(--accent); }
+        .nav-name { cursor: pointer; }
+
+        .theme-toggle {
+            background: none; border: 1.5px solid var(--border);
+            border-radius: 100px; padding: 5px 10px;
+            color: var(--text-muted); cursor: pointer;
+            font-size: 0.85rem; transition: all 0.2s;
+            display: flex; align-items: center; gap: 6px;
+            flex-shrink: 0;
+        }
+        .theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+        a { color: var(--link); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        img { max-width: 100%; display: block; }
+
+        /* ── Nav ── */
+        nav {
+            position: sticky; top: 0; z-index: 100;
+            background: rgba(255,255,255,0.93);
+        }
+        [data-theme="dark"] nav {
+            background: rgba(18,16,26,0.93);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            padding: 0 28px;
+        }
+        .nav-inner {
+            max-width: var(--wide-w); margin: 0 auto;
+            display: flex; align-items: center; justify-content: space-between;
+            height: 52px;
+        }
+        .nav-name {
+            font-family: var(--serif); font-weight: 500; font-size: 1rem;
+            color: var(--text); letter-spacing: 0.01em;
+        }
+        nav ul { display: flex; list-style: none; gap: 26px; }
+        nav ul a {
+            font-size: 0.78rem; font-weight: 500; color: var(--text-muted);
+            letter-spacing: 0.05em; text-transform: uppercase; transition: color 0.2s;
+        }
+        nav ul a:hover { color: var(--accent); text-decoration: none; }
+
+        /* ── Hero ── */
+        #hero { overflow-y: auto; }
+        .hero-inner {
+            max-width: var(--wide-w); margin: 0 auto;
+            padding: 76px 28px 60px;
+            display: grid; grid-template-columns: 1fr 360px; gap: 52px; align-items: center;
+        }
+        .hero-text h1 {
+            font-family: var(--serif); font-size: 2.75rem;
+            font-weight: 500; line-height: 1.2; margin-bottom: 8px;
+        }
+        .hero-text h1 em { font-style: italic; color: var(--accent); }
+        .hero-sub {
+            font-size: 1rem; color: var(--text-muted);
+            margin-bottom: 18px; font-weight: 300;
+        }
+        .hero-text p {
+            font-size: 0.94rem; max-width: 510px;
+            color: var(--text); margin-bottom: 28px; line-height: 1.82;
+        }
+        .hero-links { display: flex; flex-wrap: wrap; gap: 9px; }
+        .hero-links a {
+            display: inline-flex; align-items: center; gap: 6px;
+            font-size: 0.79rem; font-weight: 500;
+            padding: 6px 15px;
+            border: 1.5px solid var(--border); border-radius: 100px;
+            color: var(--text-muted); transition: all 0.2s;
+        }
+        .hero-links a:hover {
+            border-color: var(--accent); color: var(--accent);
+            background: var(--accent-soft); text-decoration: none;
+        }
+        .hero-photo {
+            width: 340px; height: 340px; border-radius: 50%;
+            overflow: hidden; border: 6px solid var(--accent);
+            background: var(--surface);
+            display: flex; align-items: center; justify-content: center;
+        }
+        .hero-photo img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* ── Layout containers ── */
+        .container {
+            width: 100%; max-width: var(--max-w);
+            margin: 0 auto; padding: 56px 24px;
+        }
+        .container.wide { max-width: var(--wide-w); }
+        section { border-top: 1px solid var(--border); }
+
+        /* ── Section header ── */
+        .section-header { margin-bottom: 38px; }
+        .section-header h2 {
+            font-family: var(--serif); font-size: 1.65rem;
+            font-weight: 500; margin-bottom: 10px;
+        }
+        .section-header .divider {
+            width: 36px; height: 2px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-2));
+            border-radius: 2px;
+        }
+
+        /* ── Research cards (Jasmine-style) ── */
+        .research-list { display: flex; flex-direction: column; gap: 44px; }
+
+        .research-card {
+            display: grid;
+            grid-template-columns: 216px 1fr;
+            gap: 28px;
+            align-items: start;
+        }
+        .research-img {
+            width: 216px; height: 144px; border-radius: var(--r);
+            overflow: hidden; border: 1px solid var(--border);
+            flex-shrink: 0;
+        }
+        .research-img .img-placeholder {
+            display: flex; flex-direction: column; align-items: center;
+            justify-content: center; gap: 10px; width: 100%; height: 100%; padding: 16px;
+        }
+        .research-img .img-placeholder i { font-size: 2.2rem; }
+        .research-img .img-placeholder span {
+            font-size: 0.71rem; text-align: center;
+            font-weight: 500; letter-spacing: 0.03em; line-height: 1.45;
+            color: var(--text-muted);
+        }
+
+        .research-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+        .rtag {
+            font-size: 0.69rem; padding: 3px 10px; border-radius: 100px;
+            font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+        }
+        .rtag.mauve  { background: var(--accent-soft);   color: #a060a8; }
+        .rtag.blue   { background: var(--accent-soft-2);  color: #4a7fa0; }
+        .rtag.sage   { background: #eaf5ee; color: #3d7a56; }
+        .rtag.peach  { background: #fdf0ea; color: #b06035; }
+        .rtag.status { background: #f3f0f5; color: #999; font-style: italic; font-weight: 400; }
+
+        .research-body h3 {
+            font-family: var(--serif); font-size: 1.06rem;
+            font-weight: 500; line-height: 1.45; margin-bottom: 5px;
+        }
+        .research-body h3 a { color: var(--text); transition: color 0.2s; }
+        .research-body h3 a:hover { color: var(--accent); text-decoration: none; }
+        .research-venue {
+            font-size: 0.77rem; color: var(--text-muted);
+            font-style: italic; margin-bottom: 10px;
+        }
+        .research-venue strong { font-style: normal; font-weight: 600; color: var(--accent); }
+        .research-body > p {
+            font-size: 0.87rem; color: var(--text-muted);
+            line-height: 1.72; margin-bottom: 12px;
+        }
+        .contrib-label {
+            font-size: 0.71rem; font-weight: 600; color: var(--text-muted);
+            letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 6px;
+        }
+        .contrib-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+        .contrib-list li {
+            font-size: 0.845rem; color: var(--text-muted);
+            line-height: 1.6; padding-left: 16px; position: relative;
+        }
+        .contrib-list li::before {
+            content: '→'; position: absolute; left: 0;
+            color: var(--accent); font-size: 0.72rem; top: 2px;
+        }
+
+        /* ── Timeline ── */
+        .timeline { display: flex; flex-direction: column; gap: 36px; }
+        .timeline-item {
+            display: grid; grid-template-columns: 175px 1fr;
+            gap: 28px; align-items: start;
+        }
+        .timeline-left { display: flex; flex-direction: column; align-items: center; }
+        .timeline-date {
+            font-size: 0.75rem; color: var(--text-muted);
+            font-weight: 500; line-height: 1.4; letter-spacing: 0.02em;
+            margin-bottom: 6px;
+        }
+        .org-logo-box {
+            width: 160px; height: 120px;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .org-logo-box img {
+            width: 160px; height: 120px;
+            object-fit: cover; border-radius: 12px;
+        }
+        .timeline-content h3 {
+            font-family: var(--sans); font-size: 1.05rem; font-weight: 600;
+            margin-bottom: 2px; color: var(--text);
+        }
+        .timeline-content .role { font-size: 0.84rem; color: var(--accent); font-weight: 500; margin-bottom: 8px; }
+        .timeline-content ul {
+            padding-left: 16px; font-size: 0.9rem;
+            color: var(--text); line-height: 1.75;
+        }
+        .timeline-content ul li { margin-bottom: 4px; }
+
+        /* ── Publications ── */
+        .pub-list { display: flex; flex-direction: column; gap: 14px; }
+        .pub-item {
+            padding: 17px 22px; background: var(--surface);
+            border-radius: var(--r); border-left: 3px solid var(--accent);
+        }
+        .pub-item h3 {
+            font-family: var(--serif); font-size: 0.95rem;
+            font-weight: 500; margin-bottom: 5px; line-height: 1.5;
+        }
+        .pub-item h3 a { color: var(--text); }
+        .pub-item h3 a:hover { color: var(--accent); }
+        .pub-venue { font-size: 0.77rem; color: var(--text-muted); font-style: italic; }
+        .pub-venue strong { font-style: normal; font-weight: 600; color: var(--accent); }
+
+        /* ── Tags ── */
+        .tag-cloud { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+        .tag {
+            font-size: 0.76rem; padding: 4px 13px; border-radius: 100px;
+            background: var(--surface-2); color: var(--text-muted); font-weight: 500;
+        }
+        .tag.p { background: var(--accent-soft); color: #a060a8; }
+        .tag.b { background: var(--accent-soft-2); color: #4a7fa0; }
+        .tag.g { background: #eaf5ee; color: #3d7a56; }
+
+        /* ── Awards ── */
+        .awards-grid { display: flex; flex-direction: column; gap: 18px; }
+        .award-item {
+            display: grid; grid-template-columns: 60px 1fr;
+            gap: 24px; align-items: baseline;
+        }
+        .award-year {
+            font-size: 0.82rem; color: var(--text-muted);
+            font-weight: 500; letter-spacing: 0.02em;
+        }
+        .award-title {
+            font-size: 1rem; color: var(--text); font-weight: 400;
+            font-family: var(--serif);
+        }
+
+        /* ── Footer ── */
+        footer { border-top: 1px solid var(--border); padding: 40px 28px; margin-top: 20px; }
+        .footer-inner {
+            max-width: var(--wide-w); margin: 0 auto;
+            display: flex; justify-content: space-between;
+            align-items: center; flex-wrap: wrap; gap: 16px;
+        }
+        .footer-left p { font-size: 0.79rem; color: var(--text-muted); line-height: 1.65; }
+        .footer-left a { color: var(--accent); }
+        .footer-links { display: flex; gap: 18px; }
+        .footer-links a { font-size: 1.15rem; color: var(--text-muted); transition: color 0.2s; }
+        .footer-links a:hover { color: var(--accent); }
+
+        /* ── Animations ── */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(14px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .fade { animation: fadeUp 0.55s ease both; }
+        .d1 { animation-delay: 0.05s; } .d2 { animation-delay: 0.15s; }
+        .d3 { animation-delay: 0.25s; } .d4 { animation-delay: 0.35s; }
+
+        /* ── Responsive ── */
+        @media (max-width: 700px) {
+            .hero-inner { grid-template-columns: 1fr; padding: 48px 20px 40px; }
+            .hero-photo { order: -1; width: 130px; height: 130px; }
+            .hero-text h1 { font-size: 2rem; }
+            .research-card { grid-template-columns: 1fr; }
+            .research-img { width: 100%; height: 160px; }https://en.wikipedia.org/wiki/Citadel_Securities
+            .timeline-item { grid-template-columns: 1fr; }
+            .timeline-left { flex-direction: row; justify-content: flex-start; align-items: center; gap: 12px; }
+            .org-logo-box { width: 48px; height: 48px; }
+            .award-item { grid-template-columns: 48px 1fr; gap: 16px; }
+            nav ul { gap: 12px; }
+            nav ul a { font-size: 0.72rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ─── Nav ─────────────────────────────────────────── -->
+<nav>
+    <div class="nav-inner">
+        <span class="nav-name" onclick="showSection('hero')">Akshata Tiwari</span>
+        <ul>
+            <li><a href="#" data-section="research"     onclick="showSection('research');     return false;">Research</a></li>
+            <li><a href="#" data-section="experience"   onclick="showSection('experience');   return false;">Experience</a></li>
+            <li><a href="#" data-section="publications" onclick="showSection('publications'); return false;">Publications</a></li>
+            <li><a href="#" data-section="about"        onclick="showSection('about');        return false;">About</a></li>
+            <li><a href="#" data-section="honors"       onclick="showSection('honors');       return false;">Honors</a></li>
+        </ul>
+        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">
+            <i class="fa-solid fa-moon" id="theme-icon"></i>
+        </button>
+    </div>
+</nav>
+
+<!-- ─── Hero ─────────────────────────────────────────── -->
+<div id="hero" class="panel active">
+<div class="hero-inner">
+    <div class="hero-text">
+        <h1 class="fade d1">Hi, I'm <em>Akshata Tiwari.</em></h1>
+        <p class="hero-sub fade d2">CS, AI &amp; Finance · MIT</p>
+        <p class="fade d3" style="font-size: 1.28rem; font-family: var(--sans); font-weight: 500; line-height: 1.7; margin-bottom: 20px;">
+            I'm a third-year undergraduate at MIT working on <span style="color:#a060a8; font-weight:600;">video world models</span>, <span style="color:#4a7fa0; font-weight:600;">vision-language models</span>, and <span style="color:#3d7a56; font-weight:600;">post-training</span> for multimodal systems.
+        </p>
+        <p class="fade d3" style="margin-bottom: 14px;">
+            I currently conduct research in <strong>MIT's 3D Scene Representation Group</strong>, where I study 3D consistency in <span style="color:#a060a8; font-weight:600;">video world models</span>. I also work in <strong>MIT's Laboratory for Financial Engineering</strong> on multimodal alignment for financial time series (accepted at <span style="color:#3d7a56; font-weight:600;">ICLR 2026</span>). More broadly, I'm interested in <span style="color:#4a7fa0; font-weight:600;">representation learning</span> and building systems that can reason over structured real-world data.
+        </p>
+        <p class="fade d3">
+            Previously, I worked at <strong>Citadel Securities</strong>, <strong>SRI International</strong>, and <strong>Nasdaq</strong>, building AI/ML systems and production-facing infrastructure. I'm currently exploring research roles for <span style="color:#a060a8; font-weight:600;">world models</span>, <span style="color:#3d7a56; font-weight:600;">multimodal learning</span>, and <span style="color:#4a7fa0; font-weight:600;">vision-language models</span>.
+        </p>
+        <div class="hero-links fade d4">
+            <a href="https://www.linkedin.com/in/akshata-tiwari-a2b980208/" target="_blank">
+                <i class="fa-brands fa-linkedin"></i> LinkedIn
+            </a>
+            <a href="https://github.com/AkshTi" target="_blank">
+                <i class="fa-brands fa-github"></i> GitHub
+            </a>
+            <a href="mailto:akshatat@mit.edu">
+                <i class="fa-solid fa-envelope"></i> Email
+            </a>
+            <a href="https://drive.google.com/file/d/1AYJ4oFs7RWQ3FKJBaO2IkIiBuguCyuYb/view?usp=sharing" target="_blank">
+                <i class="fa-solid fa-file-lines"></i> CV
+            </a>
+        </div>
+    </div>
+    <div class="hero-photo fade d2">
+        <img src="ECFA3BF3-78A6-4C3F-88F0-5E1A26E26112 4.jpg" alt="Akshata Tiwari"
+             onerror="this.style.display='none'">
+    </div>
+</div><!-- /.hero-inner -->
+</div>
+
+<!-- ─── Research ─────────────────────────────────────── -->
+<section id="research" class="panel">
+<div class="container wide" style="padding: 56px 28px;">
+    <div class="section-header">
+        <h2>Research</h2>
+        <div class="divider"></div>
+    </div>
+
+    <div class="research-list">
+
+        <!-- 1. 3D World Models -->
+        <div class="research-card">
+            <div class="research-img">
+                <div class="img-placeholder" style="background: linear-gradient(135deg, #dceef8, #ede3f5);">
+                    <i class="fa-solid fa-cube" style="color: var(--accent-2);"></i>
+                    <span>3D Scene · Video World Models</span>
+                </div>
+            </div>
+            <div class="research-body">
+                <div class="research-tags">
+                    <span class="rtag blue">3D Vision</span>
+                    <span class="rtag mauve">World Models</span>
+                    <span class="rtag sage">Video Generation</span>
+                    <span class="rtag status">In Progress</span>
+                </div>
+                <h3>3D Consistency in Video World Models</h3>
+                <div class="research-venue">
+                    MIT 3D Scene Representation Group · Advised by <strong>Prof. Vincent Sitzmann</strong> · Jan 2026 – Present
+                </div>
+                <p>
+                    Studying long-horizon 3D drift in video world models — the gap between commanded camera motion
+                    and what the model actually generates — and building architectures that preserve stable scene understanding over time.
+                </p>
+                <div class="contrib-label">Contributions</div>
+                <ul class="contrib-list">
+                    <li>Characterizing long-horizon drift between commanded camera motion and generated observations.</li>
+                    <li>Developing an aggregate action-conditioned video world model architecture and evaluation pipeline.</li>
+                    <li>Measuring perceptual quality and estimated camera-pose error on RealEstate10K.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 2. VLM Finance -->
+        <div class="research-card">
+            <div class="research-img">
+                <div class="img-placeholder" style="background: linear-gradient(135deg, #f4e6f4, #fce8de);">
+                    <i class="fa-solid fa-chart-line" style="color: var(--accent);"></i>
+                    <span>VLM · Time Series · Finance</span>
+                </div>
+            </div>
+            <div class="research-body">
+                <div class="research-tags">
+                    <span class="rtag mauve">VLMs</span>
+                    <span class="rtag mauve">Representation Learning</span>
+                    <span class="rtag peach">Financial AI</span>
+                </div>
+                <h3><a href="https://openreview.net/forum?id=KITAwtGqWn&noteId=RLCnQaGd59" target="_blank">A VLM-Based Framework For Technical Analysis</a></h3>
+                <div class="research-venue">
+                    MIT Laboratory for Financial Engineering · Jun 2024 – Present ·
+                    <strong>ICLR 2026</strong>, Workshop on Advances in Financial AI: Agentic Systems
+                </div>
+                <p>
+                    Developing a framework for vision-language models to discover visual patterns in financial time series
+                    through clustering latents, iterative post-training, and probing VLM internals for generalization.
+                </p>
+                <div class="contrib-label">Contributions</div>
+                <ul class="contrib-list">
+                    <li>Generated chart descriptions and clustered visual latents to construct preference signals.</li>
+                    <li>Explored iterative contrastive post-training (DPO) to improve pattern recognition and generalization.</li>
+                    <li>Built evaluation pipelines for discovering financial pattern families across time series datasets.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 3. Stress Monitoring -->
+        <div class="research-card">
+            <div class="research-img">
+                <div class="img-placeholder" style="background: linear-gradient(135deg, #e2f4ea, #dceef8);">
+                    <i class="fa-solid fa-video" style="color: var(--accent-3);"></i>
+                    <span>Computer Vision · Biomedical</span>
+                </div>
+            </div>
+            <div class="research-body">
+                <div class="research-tags">
+                    <span class="rtag sage">Computer Vision</span>
+                    <span class="rtag blue">Biomedical</span>
+                </div>
+                <h3>
+                    <a href="https://mpsych.org/papers/tiwari2024noninvasive.pdf" target="_blank">
+                        Non-Invasive Stress Monitoring from Video
+                    </a>
+                </h3>
+                <div class="research-venue">
+                    <strong>IEEE ISBI 2024</strong> · NeurIPS 2024 WiML Workshop · ICML 2022 Poster
+                </div>
+                <p>
+                    Multi-modal system integrating computer vision models to evaluate stress indicators
+                    through facial recordings for semi-autonomous systems.
+                </p>
+                <div class="contrib-label">Contributions</div>
+                <ul class="contrib-list">
+                    <li>Designed multi-modal fusion pipeline combining facial action units, rPPG, and gaze signals.</li>
+                    <li>Published at IEEE ISBI Vol. 21; presented poster at ICML 2022 and NeurIPS WiML 2024.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 4. Diffusion Medical -->
+        <div class="research-card">
+            <div class="research-img">
+                <div class="img-placeholder" style="background: linear-gradient(135deg, #fce8de, #f4e6f4);">
+                    <i class="fa-solid fa-lungs" style="color: #c07040;"></i>
+                    <span>Diffusion Models · Medical Imaging</span>
+                </div>
+            </div>
+            <div class="research-body">
+                <div class="research-tags">
+                    <span class="rtag peach">Diffusion Models</span>
+                    <span class="rtag sage">Medical Imaging</span>
+                </div>
+                <h3>Diffusion Models for Out-of-Distribution Medical Image Generation</h3>
+                <div class="research-venue">SRI International · Jun – Dec 2024</div>
+                <p>
+                    Engineered and optimized diffusion model pipelines to handle out-of-distribution medical imaging inputs
+                    across multiple modalities, generating a large-scale synthetic dataset for augmentation.
+                </p>
+                <div class="contrib-label">Contributions</div>
+                <ul class="contrib-list">
+                    <li>Developed distributed PyTorch training pipelines generating 50,000+ high-quality medical images.</li>
+                    <li>Integrated transformer architectures and NLP preprocessing into a modular augmentation framework.</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>
+</section>
+
+<!-- ─── Experience ────────────────────────────────────── -->
+<section id="experience" class="panel">
+<div class="container">
+    <div class="section-header">
+        <h2>Experience</h2>
+        <div class="divider"></div>
+    </div>
+    <div class="timeline">
+
+        <div class="timeline-item">
+            <div class="timeline-left">
+                <div class="org-logo-box">
+                    <img src="citadel_securities_logo.jpeg" alt="Citadel Securities">
+                </div>
+            </div>
+            <div class="timeline-content">
+                <h3>Citadel Securities</h3>
+                <div class="timeline-date">Jun – Aug 2025</div>
+                <div class="role">Software Engineering Intern · New York City</div>
+                <ul>
+                    <li>Designed end-to-end execution engine for FINRA/SEC regulatory checks on front-office trade data; engineered pipelines using Apache Kafka, BigQuery, and Celery-based multiprocessing.</li>
+                    <li>Led system design and CI-tested unit coverage; deployed to production via Jenkins. Reduced daily regulatory overhead by <strong>48%</strong> for compliance and trading teams.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-left">
+                <div class="org-logo-box">
+                    <img src="nasdaq.jpg" alt="Nasdaq">
+                </div>
+            </div>
+            <div class="timeline-content">
+                <h3>Nasdaq</h3>
+                <div class="timeline-date">Jan 2025</div>
+                <div class="role">Machine Learning Research Intern · Boston</div>
+                <ul>
+                    <li>Trained hybrid regression + random-forest classifier to predict OTC settlement failures with <strong>98% accuracy</strong>; applied SMOTE, stratified k-fold CV, and GridSearchCV.</li>
+                    <li>Presented end-to-end pipeline to business stakeholders.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-left">
+                <div class="org-logo-box">
+                    <img src="sri.png" alt="SRI International">
+                </div>
+            </div>
+            <div class="timeline-content">
+                <h3>SRI International</h3>
+                <div class="timeline-date">Jun – Dec 2024</div>
+                <div class="role">Machine Learning Research Intern · Menlo Park</div>
+                <ul>
+                    <li>Engineered diffusion model pipelines in PyTorch for out-of-distribution medical imaging; generated 50,000+ synthetic images across modalities.</li>
+                    <li>Trained NLP models for preprocessing; shipped modular, tested code usable across modeling systems.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-left">
+                <div class="org-logo-box">
+                    <img src="sloan.png" alt="MIT Sloan">
+                </div>
+            </div>
+            <div class="timeline-content">
+                <h3>MIT Sloan School of Management</h3>
+                <div class="timeline-date">Jan – Jun 2024</div>
+                <div class="role">Software Engineering Intern · Cambridge</div>
+                <ul>
+                    <li>Designed pipeline to detect MEV sandwiching attacks during Ethereum transactions.</li>
+                    <li>Built Python + Selenium testing framework for MindMeld, a gen-AI application; contributed to code review and Agile practices.</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>
+</section>
+
+<!-- ─── Publications ──────────────────────────────────── -->
+<section id="publications" class="panel">
+<div class="container">
+    <div class="section-header">
+        <h2>Publications</h2>
+        <div class="divider"></div>
+    </div>
+    <div class="pub-list">
+
+        <div class="pub-item">
+            <h3><a href="https://openreview.net/forum?id=KITAwtGqWn&noteId=RLCnQaGd59" target="_blank">A VLM-Based Framework For Technical Analysis</a></h3>
+            <div class="pub-venue">
+                A. Tiwari, A. Lo (2026) ·
+                <strong>ICLR 2026</strong>, Workshop on Advances in Financial AI: Agentic Systems
+            </div>
+        </div>
+
+        <div class="pub-item">
+            <h3>Stress Monitoring for Semi-Autonomous Systems</h3>
+            <div class="pub-venue">
+                A. Tiwari, D. Haehn (2024) · <strong>NeurIPS 2024</strong>, WiML Workshop
+            </div>
+        </div>
+
+        <div class="pub-item">
+            <h3>
+                <a href="https://mpsych.org/papers/tiwari2024noninvasive.pdf" target="_blank">
+                    Non-Invasive Stress Monitoring from Video
+                </a>
+            </h3>
+            <div class="pub-venue">
+                A. Tiwari, B. Matejek, D. Haehn (2024) · <strong>IEEE ISBI 2024</strong>, Vol. 21
+            </div>
+        </div>
+
+        <div class="pub-item">
+            <h3>
+                <a href="https://scrs.in/conference/aita2024" target="_blank">
+                    New Approaches for Winner Determination via Minimum Weighted Vertex Cover
+                </a>
+            </h3>
+            <div class="pub-venue">
+                G. Su, A. Tiwari, T.K. Satish Kumar (2024) · <strong>AITA 2024</strong>
+            </div>
+        </div>
+
+        <div class="pub-item">
+            <h3>
+                <a href="https://ieeexplore.ieee.org/document/9951558" target="_blank">
+                    Effectiveness of Deep Learning for Erasing Satellite Streaks in Astronomical Photos
+                </a>
+            </h3>
+            <div class="pub-venue">
+                A. Tiwari (2022) · <strong>IEEE TransAI 2022</strong>, pp. 30–31
+            </div>
+        </div>
+
+        <div class="pub-item">
+            <h3>Non-Invasive Stress Monitoring (Poster)</h3>
+            <div class="pub-venue">
+                A. Tiwari (2022) · <strong>ICML 2022</strong>, Poster Presentation
+            </div>
+        </div>
+
+    </div>
+</div>
+</section>
+
+<!-- ─── About ────────────────────────────────────────── -->
+<section id="about" class="panel">
+<div class="container">
+    <div class="section-header">
+        <h2>About</h2>
+        <div class="divider"></div>
+    </div>
+
+    <p style="font-size: 0.93rem; max-width: 560px; line-height: 1.82; margin-bottom: 20px; color: var(--text);">
+        In my free time, you can find me doing handlettering and <strong>calligraphy</strong>, or collecting all sorts of stationery. I also love <strong>creative writing</strong> and have had my works (poetry, short stories) published. 
+        I also love playing <strong>tennis</strong> and spending time at the <strong>beach</strong>.
+    </p>
+    </p>
+
+    <!-- <p style="font-size: 0.93rem; max-width: 560px; line-height: 1.82; margin-bottom: 20px; color: var(--text);"> -->
+        
+</div>
+</section>
+
+<!-- ─── Honors & Awards ───────────────────────────────── -->
+<section id="honors" class="panel">
+<div class="container">
+    <div class="section-header">
+        <h2>Honors &amp; Awards</h2>
+        <div class="divider"></div>
+    </div>
+    <div class="awards-grid">
+        <div class="award-item"><span class="award-year">2024</span><span class="award-title">IEEE Top 50 International Research Grant Winner</span></div>
+        <div class="award-item"><span class="award-year">2023</span><span class="award-title">Regeneron Science Talent Search Top 300 Scholar</span></div>
+        <div class="award-item"><span class="award-year">2022</span><span class="award-title">Honorable Mention: CA Science and Engineering Fair</span></div>
+        <div class="award-item"><span class="award-year">2022</span><span class="award-title">1st Place Research: Orange County Science Fair</span></div>
+        <div class="award-item"><span class="award-year">2022</span><span class="award-title">USA Computing Olympiad Silver Division</span></div>
+        <div class="award-item"><span class="award-year">2022</span><span class="award-title">USA Biology Olympiad Honorable Mention</span></div>
+    </div>
+</div>
+</section>
+
+<!-- ─── Footer ───────────────────────────────────────── -->
+<section id="contact" class="panel">
+<footer>
+    <div class="footer-inner">
+        <div class="footer-left">
+            <p style="font-family:var(--serif); font-size:0.97rem; color:var(--text); margin-bottom:4px;">Akshata Tiwari</p>
+            <p>Cambridge, MA · <a href="mailto:akshatat@mit.edu">akshatat@mit.edu</a></p>
+        </div>
+        <div class="footer-links">
+            <a href="https://www.linkedin.com/in/akshata-tiwari-a2b980208/" target="_blank" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="https://github.com/AkshTi" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a>
+            <a href="mailto:akshatat@mit.edu" title="Email"><i class="fa-solid fa-envelope"></i></a>
+            <a href="https://drive.google.com/file/d/1AYJ4oFs7RWQ3FKJBaO2IkIiBuguCyuYb/view?usp=sharing" target="_blank" title="CV"><i class="fa-solid fa-file-lines"></i></a>
+        </div>
+    </div>
+</footer>
+</section>
+
+<script>
+    function toggleTheme() {
+        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
+        document.getElementById('theme-icon').className = isDark ? 'fa-solid fa-moon' : 'fa-solid fa-sun';
+        localStorage.setItem('theme', isDark ? 'light' : 'dark');
+    }
+    // Restore saved preference
+    const saved = localStorage.getItem('theme');
+    if (saved === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        document.getElementById('theme-icon').className = 'fa-solid fa-sun';
+    }
+
+    function showSection(id) {
+        // Toggle hero
+        const hero = document.getElementById('hero');
+        hero.classList.toggle('active', id === 'hero');
+
+        // Toggle sections
+        document.querySelectorAll('section.panel').forEach(s => {
+            s.classList.toggle('active', s.id === id);
+        });
+
+        // Update nav highlight
+        document.querySelectorAll('nav ul a').forEach(a => {
+            a.classList.toggle('nav-active', a.dataset.section === id);
+        });
+    }
+</script>
+</body>
+</html>
