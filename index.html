@@ -366,10 +366,10 @@
         <h1 class="fade d1">Hi, I'm <em>Akshata Tiwari.</em></h1>
         <p class="hero-sub fade d2">CS, AI &amp; Finance · MIT</p>
         <p class="fade d3" style="font-size: 1.28rem; font-family: var(--sans); font-weight: 500; line-height: 1.7; margin-bottom: 20px;">
-            I'm a third-year undergraduate at MIT working on <span style="color:#a060a8; font-weight:600;">video world models</span>, <span style="color:#4a7fa0; font-weight:600;">vision-language models</span>, and <span style="color:#3d7a56; font-weight:600;">post-training</span> for multimodal systems.
+            I'm a third-year undergraduate at MIT working on <span style="color:#a060a8; font-weight:600;">video world models</span>, <span style="color:#4a7fa0; font-weight:700; background: var(--accent-soft-2); padding: 1px 5px; border-radius: 4px;">vision-language models</span>, and <span style="color:#3d7a56; font-weight:700; background: #eaf5ee; padding: 1px 5px; border-radius: 4px;">post-training</span> for multimodal systems.
         </p>
         <p class="fade d3" style="margin-bottom: 14px;">
-            I currently conduct research in <strong>MIT's 3D Scene Representation Group</strong>, where I study action conditioning in <span style="color:#a060a8; font-weight:600;">video world models</span>. I also work in <strong>MIT's Laboratory for Financial Engineering</strong> on multimodal alignment for financial time series (accepted at <span style="color:#3d7a56; font-weight:600;">ICLR 2026</span>). More broadly, I'm interested in <span style="color:#4a7fa0; font-weight:600;">representation learning</span> and building systems that can reason over structured real-world data.
+            I currently conduct research in <strong>MIT's 3D Scene Representation Group</strong>, where I study action conditioning in <span style="color:#a060a8; font-weight:600;">video world models</span>. I also work in <strong>MIT's Laboratory for Financial Engineering</strong> on <span style="color:#3d7a56; font-weight:600;">post-training</span> and multimodal alignment for foundation models (accepted at <span style="color:#3d7a56; font-weight:600;">ICLR 2026</span>, with a follow-on paper under review). More broadly, I'm interested in <span style="color:#4a7fa0; font-weight:600;">representation learning</span> and building systems that can reason over structured real-world data.
         </p>
         <p class="fade d3">
             Previously, I worked at <strong>Citadel Securities</strong>, <strong>SRI International</strong>, and <strong>Nasdaq</strong>, building AI/ML systems and production-facing infrastructure. I'm currently exploring research roles for <span style="color:#a060a8; font-weight:600;">world models</span>, <span style="color:#3d7a56; font-weight:600;">multimodal learning</span>, and <span style="color:#4a7fa0; font-weight:600;">vision-language models</span>.
@@ -438,7 +438,43 @@
             </div>
         </div>
 
-        <!-- 2. VLM Finance -->
+        <!-- 2. Structural Preference Learning -->
+        <div class="research-card">
+            <div class="research-img">
+                <div class="img-placeholder" style="background: linear-gradient(135deg, #f0e8f8, #e8f0fc);">
+                    <i class="fa-solid fa-brain" style="color: var(--accent);"></i>
+                    <span>Preference Learning · Multimodal · Time Series</span>
+                </div>
+            </div>
+            <div class="research-body">
+                <div class="research-tags">
+                    <span class="rtag mauve">Preference Learning</span>
+                    <span class="rtag mauve">VLMs</span>
+                    <span class="rtag blue">Post-Training</span>
+                    <span class="rtag status">Under Review</span>
+                </div>
+                <h3>Self-Supervised Preference Learning for Multimodal Foundation Models</h3>
+                <div class="research-venue">
+                    MIT Laboratory for Financial Engineering (LFE) · Jun 2024 – Present ·
+                    <strong>Under Review</strong>
+                </div>
+                <p>
+                    A self-supervised post-training method that aligns multimodal foundation models using no human annotations,
+                    external judges, or task-specific labels. Trained on unlabeled time-series charts, the resulting models
+                    transfer zero-shot to held-out tasks — achieving up to <strong>31% relative gain</strong> on financial
+                    large-move detection, <strong>14%</strong> on crash-risk prediction, and <strong>10%</strong> on ECG
+                    abnormality detection over a supervised fine-tuning baseline.
+                </p>
+                <div class="contrib-label">Contributions</div>
+                <ul class="contrib-list">
+                    <li>Developed a self-supervised preference construction pipeline requiring no labels or human feedback, validated across financial, ECG, and seismic domains.</li>
+                    <li>Ran iterative DPO on Qwen2-VL-7B and Gemma-3-4B; gains replicate across both model families and accumulate over training rounds.</li>
+                    <li>Probed internal representations to confirm post-training improves visual grounding, not just output fluency.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 3. VLM Finance -->
         <div class="research-card">
             <div class="research-img">
                 <div class="img-placeholder" style="background: linear-gradient(135deg, #f4e6f4, #fce8de);">
@@ -454,7 +490,7 @@
                 </div>
                 <h3><a href="https://openreview.net/forum?id=KITAwtGqWn&noteId=RLCnQaGd59" target="_blank">A VLM-Based Framework For Technical Analysis</a></h3>
                 <div class="research-venue">
-                    MIT Laboratory for Financial Engineering · Jun 2024 – Present ·
+                    MIT Laboratory for Financial Engineering (LFE) · Jun 2024 – Present ·
                     <strong>ICLR 2026</strong>, Workshop on Advances in Financial AI: Agentic Systems
                 </div>
                 <p>
@@ -623,6 +659,14 @@
         <div class="divider"></div>
     </div>
     <div class="pub-list">
+
+        <div class="pub-item" style="border-left-color: var(--accent-2);">
+            <h3>Self-Supervised Preference Learning for Multimodal Foundation Models</h3>
+            <div class="pub-venue">
+                A. Tiwari et al. (2026) ·
+                <strong>Under Review</strong>
+            </div>
+        </div>
 
         <div class="pub-item">
             <h3><a href="https://openreview.net/forum?id=KITAwtGqWn&noteId=RLCnQaGd59" target="_blank">A VLM-Based Framework For Technical Analysis</a></h3>
